@@ -457,3 +457,28 @@ felica_request_system(felica *f, int *n, uint16 *data)
 
   return 0;
 }
+
+int felica_transmit(felica *f, const uint8 *tx, const uint16 txLen, uint8 *rx, uint16 *rxLen)
+{
+  uint8 resp[DATASIZE + 1];
+  int len, r;
+
+  Log("%s\n", __func__);
+
+  if (f == NULL || tx == NULL || rx == NULL || rxLen == NULL)
+    return PASORI_ERR_PARM;
+
+  r = pasori_write(f->p, tx, &txLen);
+  if (r)
+    return r;
+
+  len = DATASIZE;
+  r = felica_pasori_read(f->p, resp, &len);
+  if (r)
+    return r;
+
+  memcpy(rx, resp, len);
+  *rxLen = len;
+
+  return 0;
+}
