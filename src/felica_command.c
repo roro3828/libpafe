@@ -458,7 +458,7 @@ felica_request_system(felica *f, int *n, uint16 *data)
   return 0;
 }
 
-int felica_transmit(felica *f, const uint8 *tx, const uint16 txLen, uint8 *rx, uint16 *rxLen)
+int felica_transmit(felica *f, uint8 *tx, int txLen, uint8 *rx, int *rxLen)
 {
   uint8 resp[DATASIZE + 1];
   int len, r;
