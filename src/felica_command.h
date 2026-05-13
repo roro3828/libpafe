@@ -12,5 +12,6 @@ int felica_request_service(felica *f, int *n, uint16 *list, uint16 *data);
 int felica_request_response(felica *f, uint8 *mode);
 int felica_search_service(felica *f);
 int felica_request_system(felica *f, int *n, uint16 *data);
+int felica_transmit(felica *f, const uint8 *tx, const uint16 txLen, uint8 *rx, uint16 *rxLen);
 
 #endif
