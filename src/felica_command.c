@@ -477,6 +477,18 @@ int felica_transmit(felica *f, uint8 *tx, int txLen, uint8 *rx, int *rxLen)
   if (r)
     return r;
 
+  switch (pasori_type(f->p)) {
+  case PASORI_TYPE_S310:
+  case PASORI_TYPE_S320:
+    len -= 0;
+    break;
+  case PASORI_TYPE_S330:
+    len -= 2;
+    break;
+  default:
+    return PASORI_ERR_TYPE;
+  }
+
   memcpy(rx, resp, len);
   *rxLen = len;
 
